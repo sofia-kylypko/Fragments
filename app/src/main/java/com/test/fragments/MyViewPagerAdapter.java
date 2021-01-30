@@ -10,9 +10,9 @@ import java.util.List;
 
 public class MyViewPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Fragment> fragments;
+    private List<BaseFragment> fragments;
 
-    public MyViewPagerAdapter(@NonNull FragmentManager fm, List<Fragment> fragments) {
+    public MyViewPagerAdapter(@NonNull FragmentManager fm, List<BaseFragment> fragments) {
         super(fm);
         this.fragments = fragments;
     }
@@ -20,7 +20,8 @@ public class MyViewPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
+
+        return fragments.get(position).getTitle();
     }
 
     @Override
