@@ -12,4 +12,9 @@
         android:background="#99C86D"
         android:text="Monday" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </FrameLayout>
