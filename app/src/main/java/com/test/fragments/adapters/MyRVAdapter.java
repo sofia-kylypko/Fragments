@@ -1,6 +1,7 @@
 package com.test.fragments.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,8 @@ public class MyRVAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.contaner,parent,false));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contaner, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override

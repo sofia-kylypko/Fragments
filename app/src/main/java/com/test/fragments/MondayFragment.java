@@ -1,5 +1,7 @@
 package com.test.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.test.fragments.Modals.ReciptModel;
@@ -24,11 +27,19 @@ public class MondayFragment extends BaseFragment {
     private RecyclerView rvList;
     private MyRVAdapter adapter;
 
+    Button btnAdd;
+    Button btnClean;
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_monday, container, false);
+
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -48,10 +59,37 @@ public class MondayFragment extends BaseFragment {
 
     private List<ReciptModel> generateRecipes(){
         ArrayList<ReciptModel> tmp=new ArrayList<>();
-        for (int i=0; i<10; i++){
+        for (int i=0; i<6; i++){
             tmp.add(new ReciptModel("Title "+i, "Discription "+i));
         }
         return tmp;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        btnAdd.setOnClickListener(view ->{
+            addNewField();
+        });
+
+        btnClean.setOnClickListener(v->{
+
+        });
+
+    }
+
+    private void addNewField() {
+        btnAdd= btnAdd.findViewById(R.id.btnAdd);
+
+        ArrayList<ReciptModel> tmp = new ArrayList<>();
+
+        btnAdd.setOnClickListener(view ->{
+            for (int i = 0; i > 5; i++) {
+                tmp.add(new ReciptModel("Title " + i, "Discription " + i + 1));
+            }
+        });
+
     }
 
     @Override
