@@ -15,21 +15,22 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     private TextView txtTitle;
     private TextView txtDescription;
 
-    private Button deleteitem;
+    private Button btnDeleteItem;
 
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
 
         txtTitle=itemView.findViewById(R.id.txtTitle);
-
         txtDescription=itemView.findViewById(R.id.txtDescription);
+        btnDeleteItem = itemView.findViewById(R.id.btnDeleteItem);
     }
 
-    public void onBind(ReciptModel reciptModel, MyRVAdapter.OnItemClick listener){
-        txtTitle.setText(reciptModel.getTitle());
-        txtDescription.setText(reciptModel.getDescription());
+    public void onBind(ReciptModel reciptModels, MyRVAdapter.OnItemClick listener){
+        txtTitle.setText(reciptModels.getTitle());
 
-        deleteitem.setOnClickListener(v->listener.onClick(reciptModel));
+        txtDescription.setText(reciptModels.getDescription());
+
+        btnDeleteItem.setOnClickListener(v->listener.onClick(reciptModels));
     }
 }

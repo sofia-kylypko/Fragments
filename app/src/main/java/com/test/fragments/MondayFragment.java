@@ -94,7 +94,7 @@ public class MondayFragment extends BaseFragment {
 
     private void add(){
         adapter.notifyItemInserted(0);
-        list.add(0, new ReciptModel(" "+setTittle.setText(setTittle.getText().toString()) ,"Description"));
+        list.add(0, new ReciptModel(" "+setTittle.getText().toString() ," "+setDescription.getText().toString()));
     }
 
     private List<ReciptModel> generateRecipt(){
