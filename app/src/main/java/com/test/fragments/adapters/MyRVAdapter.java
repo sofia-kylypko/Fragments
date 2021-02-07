@@ -16,9 +16,11 @@ import java.util.List;
 public class MyRVAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private List<ReciptModel> recipeModels;
+    private OnItemClick listener;
 
-    public MyRVAdapter(List<ReciptModel> recipeModels) {
+    public MyRVAdapter(List<ReciptModel> recipeModels, OnItemClick listener) {
         this.recipeModels = recipeModels;
+        this.listener=listener;
     }
 
     @NonNull
@@ -30,12 +32,15 @@ public class MyRVAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.onBind(recipeModels.get(position));
+        holder.onBind(recipeModels.get(position), listener);
 
     }
 
     @Override
     public int getItemCount() {
         return recipeModels.size();
+    }
+    public interface OnItemClick{
+        public void onClick(ReciptModel model);
     }
 }

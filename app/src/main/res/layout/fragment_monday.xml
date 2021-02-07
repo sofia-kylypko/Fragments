@@ -1,41 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MondayFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99C86D"
-        android:text="Monday" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"
-        android:layout_width="match_parent"
-        android:layout_height="633dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
         android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
 
-        />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnClean"
+        android:id="@+id/btnDelete"
+        android:layout_width="202dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnAdd"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/setTittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clean" />
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Tittle "
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="531dp" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/setDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Description"
+        tools:layout_editor_absoluteX="19dp"
+        tools:layout_editor_absoluteY="604dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

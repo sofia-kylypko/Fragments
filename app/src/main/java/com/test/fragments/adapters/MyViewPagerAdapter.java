@@ -36,6 +36,4 @@ public class MyViewPagerAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-    public static class Button extends ArrayList<> {
-    }
 }

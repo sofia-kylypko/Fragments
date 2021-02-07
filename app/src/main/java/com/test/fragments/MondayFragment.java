@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.test.fragments.Modals.ReciptModel;
@@ -24,13 +25,19 @@ import java.util.List;
 
 public class MondayFragment extends BaseFragment {
 
+
     private RecyclerView rvList;
     private MyRVAdapter adapter;
 
-    Button btnAdd;
-    Button btnClean;
+    private Button btnAdd;
+    private Button btnDelete;
+
+    private EditText setTittle;
+    private EditText setDescription;
 
 
+    private ArrayList<ReciptModel> list;
+    private final MyRVAdapter.OnItemClick listener = this::delete;
 
 
     @Nullable
@@ -40,56 +47,62 @@ public class MondayFragment extends BaseFragment {
 
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        setTittle= view.findViewById(R.id.setTittle);
+        setDescription= view.findViewById(R.id.setDescription);
+
         rvList=view.findViewById(R.id.rvList);
 
-        adapter =new MyRVAdapter(generateRecipes());
+        list=(ArrayList<ReciptModel>) generateRecipt();
+
+        adapter =new MyRVAdapter(list, listener);
         adapter.notifyDataSetChanged();
 
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         rvList.setAdapter(adapter);
 
+        btnAdd= view.findViewById(R.id.btnAdd);
+        btnDelete= view.findViewById(R.id.btnDelete);
+
+        btnAdd.setOnClickListener(v ->{
+            add();
+        });
+
+        btnDelete.setOnClickListener(v ->{
+            delete();
+        });
+
+
 
     }
 
-    private List<ReciptModel> generateRecipes(){
+    private void delete(ReciptModel model){
+        adapter.notifyItemInserted(list.indexOf(model));
+        list.remove(model);
+    }
+
+    private void delete(){
+        adapter.notifyItemRemoved(list.size()-1);
+        list.remove(list.size()-1);
+
+    }
+
+    private void add(){
+        adapter.notifyItemInserted(0);
+        list.add(0, new ReciptModel(" "+setTittle.setText(setTittle.getText().toString()) ,"Description"));
+    }
+
+    private List<ReciptModel> generateRecipt(){
         ArrayList<ReciptModel> tmp=new ArrayList<>();
-        for (int i=0; i<6; i++){
+        for (int i=0; i<10; i++){
             tmp.add(new ReciptModel("Title "+i, "Discription "+i));
         }
         return tmp;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        btnAdd.setOnClickListener(view ->{
-            addNewField();
-        });
-
-        btnClean.setOnClickListener(v->{
-
-        });
-
-    }
-
-    private void addNewField() {
-        btnAdd= btnAdd.findViewById(R.id.btnAdd);
-
-        ArrayList<ReciptModel> tmp = new ArrayList<>();
-
-        btnAdd.setOnClickListener(view ->{
-            for (int i = 0; i > 5; i++) {
-                tmp.add(new ReciptModel("Title " + i, "Discription " + i + 1));
-            }
-        });
-
     }
 
     @Override
