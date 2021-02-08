@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.fragments.Modals.ReciptModel;
 import com.test.fragments.R;
+import com.test.fragments.data.Repo;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -26,11 +27,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         btnDeleteItem = itemView.findViewById(R.id.btnDeleteItem);
     }
 
-    public void onBind(ReciptModel reciptModels, MyRVAdapter.OnItemClick listener){
-        txtTitle.setText(reciptModels.getTitle());
+    public void onBind(Repo repo, MyRVAdapter.OnItemClick listener){
+        txtTitle.setText(repo.getFullName());
 
-        txtDescription.setText(reciptModels.getDescription());
+        txtDescription.setText(repo.getName());
 
-        btnDeleteItem.setOnClickListener(v->listener.onClick(reciptModels));
+        btnDeleteItem.setOnClickListener(v->listener.onClick(repo));
     }
 }
