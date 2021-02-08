@@ -15,12 +15,18 @@ import java.util.List;
 
 public class MyRVAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
-    private List<Repo> repo;
+    private List<Repo> repos;
     private OnItemClick listener;
 
     public MyRVAdapter(List<Repo> repo, OnItemClick listener) {
-        this.repo = repo;
+        this.repos = repo;
         this.listener=listener;
+    }
+
+    public void setList(List<Repo> repos){
+        this.repos = repos;
+        notifyDataSetChanged();
+
     }
 
     @NonNull
@@ -32,12 +38,12 @@ public class MyRVAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.onBind(repo.get(position), listener);
+        holder.onBind(repos.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
-        return repo.size();
+        return repos.size();
 
     }
 

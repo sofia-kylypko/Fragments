@@ -9,5 +9,5 @@ import retrofit2.http.Path;
 
 public interface Api {
     @GET("users/{user}/repos")
-    List<Repo> getRepo(@Path("user") String user);
+    Call<List<Repo>> getRepo(@Path("user") String user);
 }

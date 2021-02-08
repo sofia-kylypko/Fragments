@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.test.fragments.Modals.ReciptModel;
 import com.test.fragments.adapters.MyRVAdapter;
@@ -57,62 +58,72 @@ public class MondayFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        list=new ArrayList<>();
 
-        setTittle= view.findViewById(R.id.setTittle);
-        setDescription= view.findViewById(R.id.setDescription);
+        setTittle = view.findViewById(R.id.setTittle);
+        setDescription = view.findViewById(R.id.setDescription);
 
-        rvList=view.findViewById(R.id.rvList);
-
-        list=(ArrayList<Repo>) getRepo("vindmaster2");
-
-        adapter =new MyRVAdapter(list, listener);
+        rvList = view.findViewById(R.id.rvList);
+        adapter = new MyRVAdapter(list, listener);
         adapter.notifyDataSetChanged();
+
+        getRepo("sofia-kylypko");
 
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         rvList.setAdapter(adapter);
 
-        btnAdd= view.findViewById(R.id.btnAdd);
-        btnDelete= view.findViewById(R.id.btnDelete);
+        btnAdd = view.findViewById(R.id.btnAdd);
+        btnDelete = view.findViewById(R.id.btnDelete);
 
-        btnAdd.setOnClickListener(v ->{
+        btnAdd.setOnClickListener(v -> {
             add();
         });
 
-        btnDelete.setOnClickListener(v ->{
+        btnDelete.setOnClickListener(v -> {
             delete();
         });
 
 
-
     }
 
-    private void delete(Repo model){
+    private void delete(Repo model) {
         adapter.notifyItemInserted(list.indexOf(model));
         list.remove(model);
     }
 
-    private void delete(){
-        adapter.notifyItemRemoved(list.size()-1);
-        list.remove(list.size()-1);
+    private void delete() {
+        adapter.notifyItemRemoved(list.size() - 1);
+        list.remove(list.size() - 1);
 
     }
 
-    private void add(){
+    private void add() {
         adapter.notifyItemInserted(0);
         list.add(0, new Repo());
     }
 
-    private List<Repo> generateRecipt(){
-        ArrayList<Repo> tmp=new ArrayList<>();
-        for (int i=0; i<10; i++){
+    private List<Repo> generateRecipt() {
+        ArrayList<Repo> tmp = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
             tmp.add(new Repo());
         }
         return tmp;
     }
 
-    private List<Repo> getRepo(String name){
-        return RestService.create().getRepo(name);
+    private void getRepo(String name) {
+        RestService.create().getRepo(name).enqueue(new Callback<List<Repo>>() {
+            @Override
+            public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
+                list.addAll(response.body());
+                adapter.setList(list);
+            }
+
+            @Override
+            public void onFailure(Call<List<Repo>> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
