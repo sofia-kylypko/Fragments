@@ -9,16 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.test.fragments.Modals.ReciptModel;
 import com.test.fragments.R;
+import com.test.fragments.data.Repo;
 
 import java.util.List;
 
 public class MyRVAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
-    private List<ReciptModel> reciptModels;
+    private List<Repo> repo;
     private OnItemClick listener;
 
-    public MyRVAdapter(List<ReciptModel> reciptModels, OnItemClick listener) {
-        this.reciptModels = reciptModels;
+    public MyRVAdapter(List<Repo> repo, OnItemClick listener) {
+        this.repo = repo;
         this.listener=listener;
     }
 
@@ -31,18 +32,18 @@ public class MyRVAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.onBind(reciptModels.get(position), listener);
+        holder.onBind(repo.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
-        return reciptModels.size();
+        return repo.size();
 
     }
 
 
     public interface OnItemClick {
-        public void onClick(ReciptModel model);
+        public void onClick(Repo model);
     }
 }
 

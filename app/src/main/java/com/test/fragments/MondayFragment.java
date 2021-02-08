@@ -19,9 +19,15 @@ import android.widget.LinearLayout;
 
 import com.test.fragments.Modals.ReciptModel;
 import com.test.fragments.adapters.MyRVAdapter;
+import com.test.fragments.data.Repo;
+import com.test.fragments.data.RestService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MondayFragment extends BaseFragment {
 
@@ -36,7 +42,7 @@ public class MondayFragment extends BaseFragment {
     private EditText setDescription;
 
 
-    private ArrayList<ReciptModel> list;
+    private ArrayList<Repo> list;
     private final MyRVAdapter.OnItemClick listener = this::delete;
 
 
@@ -57,7 +63,7 @@ public class MondayFragment extends BaseFragment {
 
         rvList=view.findViewById(R.id.rvList);
 
-        list=(ArrayList<ReciptModel>) generateRecipt();
+        list=(ArrayList<Repo>) getRepo("vindmaster2");
 
         adapter =new MyRVAdapter(list, listener);
         adapter.notifyDataSetChanged();
@@ -81,7 +87,7 @@ public class MondayFragment extends BaseFragment {
 
     }
 
-    private void delete(ReciptModel model){
+    private void delete(Repo model){
         adapter.notifyItemInserted(list.indexOf(model));
         list.remove(model);
     }
@@ -94,15 +100,19 @@ public class MondayFragment extends BaseFragment {
 
     private void add(){
         adapter.notifyItemInserted(0);
-        list.add(0, new ReciptModel(" "+setTittle.getText().toString() ," "+setDescription.getText().toString()));
+        list.add(0, new Repo());
     }
 
-    private List<ReciptModel> generateRecipt(){
-        ArrayList<ReciptModel> tmp=new ArrayList<>();
+    private List<Repo> generateRecipt(){
+        ArrayList<Repo> tmp=new ArrayList<>();
         for (int i=0; i<10; i++){
-            tmp.add(new ReciptModel("Title "+i, "Discription "+i));
+            tmp.add(new Repo());
         }
         return tmp;
+    }
+
+    private List<Repo> getRepo(String name){
+        return RestService.create().getRepo(name);
     }
 
     @Override
